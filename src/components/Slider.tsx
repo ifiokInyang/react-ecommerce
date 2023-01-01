@@ -1,20 +1,30 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons';
+import { useState } from 'react';
 import styled from 'styled-components'
-
+import { sliderItems } from '../data';
 
 interface Props{
-    direction: string
+    direction?: string
+    bg?: string
 }
+interface SlideInd{
+    slideIndex:number
+}
+
+
 const Container = styled.div`
     width: 100%;
     height: 100vh;
     display: flex;
     background-color: coral;
     position: relative;
+    overflow: hidden; 
 `;
 const Wrapper = styled.div`
     height: 100%;
-
+    display: flex;
+    transition: all 1.5s ease;
+    transform: translateX(${(props: SlideInd)=>props.slideIndex * -100}vw)
 `;
 const Title = styled.h1`
     font-size: 70px;
@@ -37,16 +47,15 @@ const Slide = styled.div`
     align-items: center;
     width: 100vw;
     height: 100vh;
+    background-color: #${(props:Props)=> props.bg}
 `
 const ImgContainer = styled.div`
     flex: 1;
     height: 100%;
-    border: 3px solid red;
 `
 const InfoContainer = styled.div`
     flex: 1;
     padding: 50px;
-    border: 3px solid blue;
 
 `
 const Image = styled.img`
@@ -68,34 +77,47 @@ const Arrow = styled.div`
     left: ${(props: Props) => props.direction === "left" && "10px"};
     right: ${(props: Props) => props.direction === "right" && "10px"};
     cursor: pointer;
-    opacity: 0.5
+    opacity: 0.5;
+    z-index: 2
 `
 
+
 const Slider = () => {
+    const [slideIndex, setSlideIndex] = useState(0)
+    const handleClick = (direction: string) =>{
+        if(direction === "left"){
+            setSlideIndex(slideIndex > 0 ? slideIndex-1: 2)
+        }
+        else{
+            setSlideIndex(slideIndex <  2 ? slideIndex + 1: 0)
+        }
+    }
   return (
     <Container>
-        <Arrow direction="left">
+        <Arrow direction="left" onClick={()=>handleClick("left")}>
             <ArrowLeftOutlined />
         </Arrow>
-        <Wrapper>
-            <Slide>
-                <ImgContainer>
-                    <Image src="https://i.ibb.co/DG69bQ4/2.png"/>
-                </ImgContainer>
-                <InfoContainer>
-                    <Title>
-                        SUMMER SALE
-                    </Title>
-                    <Desc>
-                        DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS
-                    </Desc>
-                    <Button>
-                        SHOP NOW
-                    </Button>
-                </InfoContainer>
-            </Slide>
+        <Wrapper slideIndex={slideIndex}>
+            {sliderItems.map((item)=>(
+                    <Slide bg={item.bg} key={item.id}>
+                        <ImgContainer>
+                            <Image src={item.img}/>
+                        </ImgContainer>
+                        <InfoContainer>
+                            <Title>
+                                {item.title}
+                            </Title>
+                            <Desc>
+                                {item.desc}
+                            </Desc>
+                            <Button>
+                                SHOP NOW
+                            </Button>
+                        </InfoContainer>
+                    </Slide>
+             ))}
         </Wrapper>
-        <Arrow direction="right">
+        <Arrow direction="right" onClick={()=>handleClick("right")}>
             <ArrowRightOutlined />
         </Arrow>
     </Container>
