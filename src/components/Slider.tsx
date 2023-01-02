@@ -2,15 +2,8 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons';
 import { useState } from 'react';
 import styled from 'styled-components'
 import { sliderItems } from '../data';
-
-interface Props{
-    direction?: string
-    bg?: string
-}
-interface SlideInd{
-    slideIndex:number
-}
-
+import { mobile } from '../responsive';
+import { Props, SlideInd } from '../utils/interface.dto'; 
 
 const Container = styled.div`
     width: 100%;
@@ -19,6 +12,8 @@ const Container = styled.div`
     background-color: coral;
     position: relative;
     overflow: hidden; 
+    ${mobile({ display: "none"})}
+
 `;
 const Wrapper = styled.div`
     height: 100%;
