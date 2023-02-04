@@ -55,3 +55,6 @@ const CategoryItem = ({item}: any) => {
 }
 
 export default CategoryItem
+
+
+
