@@ -20,3 +20,9 @@ export interface IProducts {
   createdAt: Date,
   [key: string]: any;
 }
+
+export interface ICart {
+  products: IProducts[];
+  quantity: number;
+  total: number;
+}

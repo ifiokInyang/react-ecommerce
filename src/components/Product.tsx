@@ -6,6 +6,7 @@ import {
   FavoriteBorderOutlined,
 } from "@material-ui/icons";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Info = styled.div`
   position: absolute;
@@ -76,7 +77,9 @@ const Product = ({ item }: any) => {
           <ShoppingCartOutlined />
         </Icon>
         <Icon>
+          <Link to={`/product/${item._id}`}>
           <SearchOutlined />
+          </Link>
         </Icon>
         <Icon>
           <FavoriteBorderOutlined />

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { IProducts } from "../utils/interface.dto";
+import { IProducts } from "../utils/interfaces/interface.dto";
 import Product from "./Product";
 const ServerUrl = process.env.REACT_APP_SERVER_URL;
 
@@ -25,7 +25,6 @@ const Products = ({
   const [products, setProducts] = useState<IProducts[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<IProducts[]>([]);
 
-
   const location = useLocation();
 
   useEffect(() => {
@@ -37,7 +36,6 @@ const Products = ({
             : `${ServerUrl}/api/products`
         );
         setProducts(response.data.products);
-
       } catch (error) {
         console.log(error);
       }
@@ -58,16 +56,18 @@ const Products = ({
       );
   }, [products, cat, filters]);
 
- useEffect(() => {
-   setFilteredProducts((previous) =>
-     sort === "newest"
-       ? [...previous].sort((a, b) => Number(a.createdAt) - Number(b.createdAt))
-       : sort === "asc"
-       ? [...previous].sort((a, b) => Number(a.price) - Number(b.price))
-       : [...previous].sort((a, b) => Number(b.price) - Number(a.price))
-   );
- }, [sort]);
- 
+  useEffect(() => {
+    setFilteredProducts((previous) =>
+      sort === "newest"
+        ? [...previous].sort(
+            (a, b) => Number(a.createdAt) - Number(b.createdAt)
+          )
+        : sort === "asc"
+        ? [...previous].sort((a, b) => Number(a.price) - Number(b.price))
+        : [...previous].sort((a, b) => Number(b.price) - Number(a.price))
+    );
+  }, [sort]);
+
   return (
     <Container>
       {location.pathname === "/"

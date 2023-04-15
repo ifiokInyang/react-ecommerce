@@ -43,10 +43,10 @@ const Button = styled.button`
 `;
 
 
-const CategoryItem = ({item}: any) => {
+const CategoryItem = ({ item }: any) => {
   return (
     <Container>
-      <Link to={`/products/${item.cat}`}>
+      <Link to={`/product/${item.cat}`}>
       <Image src={item.img}/>
       <Info>
         <Title>{item.title}</Title>
