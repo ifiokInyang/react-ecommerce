@@ -11,7 +11,7 @@ import SingleProduct from './pages/SingleProduct';
 import Success from './pages/Success';
 
 function App() {
-  const user = true; // replace with your authentication state
+  const user = true; // replace with authentication state
 
   return (
     <React.Fragment>

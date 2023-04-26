@@ -26,3 +26,10 @@ export interface ICart {
   quantity: number;
   total: number;
 }
+
+export interface FormProps {
+  open: boolean;
+  handleClose: () => void;
+  handleOpen: () => void;
+  total: number
+}

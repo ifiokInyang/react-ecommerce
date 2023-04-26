@@ -55,7 +55,6 @@ const ProductList = () => {
         })
     }
 
-    console.log(filters)
     return (
     <Container>
         <Navbar />
