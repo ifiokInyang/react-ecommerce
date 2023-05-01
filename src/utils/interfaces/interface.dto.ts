@@ -27,9 +27,13 @@ export interface ICart {
   total: number;
 }
 
-export interface FormProps {
-  open: boolean;
-  handleClose: () => void;
-  handleOpen: () => void;
-  total: number
+export interface IUser {
+  currentUser: null;
+  isFetching: boolean;
+  error: boolean;
+}
+
+export interface ILogin{
+  username: string,
+  password: string
 }

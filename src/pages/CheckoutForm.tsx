@@ -4,8 +4,18 @@ import {
   useElements,
   PaymentElement,
 } from "@stripe/react-stripe-js";
+import styled from "styled-components"
 
-const CheckoutForm = () => {
+const Button = styled.button`
+  cursor: pointer;
+  padding: 15px 50px;
+  border-radius: 3%;
+  font-size: 24px;
+  background-color: teal;
+  color: white;
+`;
+
+const CheckoutForm = ({total}: {total: number}) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -57,11 +67,11 @@ const CheckoutForm = () => {
     <div>
       <form id="payment-form" onSubmit={handleFormSubmit}>
         <PaymentElement />
-        <button disabled={isProcessing} id="submit">
+        <Button disabled={isProcessing} id="submit">
           <span id="button-text">
-            {isProcessing ? "Processing..." : "Pay Now"}
+            {isProcessing ? "Processing..." : `Pay $ ${total}`}
           </span>
-        </button>
+        </Button>
 
         {message && <div id="payment-message">{message}</div>}
       </form>

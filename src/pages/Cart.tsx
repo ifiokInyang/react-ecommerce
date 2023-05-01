@@ -1,7 +1,6 @@
 import { Add, Remove } from "@material-ui/icons";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
@@ -10,6 +9,8 @@ import { CartItems } from "../redux/cartRedux";
 import { mobile } from "../responsive";
 import { Props } from "../utils/interfaces/interface.dto";
 import Pay from "./Pay";
+import { Modal } from "react-responsive-modal";
+import "react-responsive-modal/styles.css";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -124,26 +125,18 @@ const SummaryItem = styled.div`
 `;
 const SummaryItemText = styled.span``;
 const SummaryItemPrice = styled.span``;
-const Button = styled.button`
-  width: 100%;
-  padding: 10px;
-  background-color: black;
-  color: white;
-  font-weight: 600;
-`;
+
 
 const Cart = () => {
-  const [open, setOpen] = useState(false);
+  const [paymentModal, setPaymentModal] = useState(false);
 
-  const handleClose = () => setOpen(false);
-  const handleOpen = () => setOpen(true);
+  const toggleModal = () => {
+    setPaymentModal(!paymentModal);
+  };
+  const onCloseModal = () => setPaymentModal(false);
 
   const cart = useSelector(CartItems);
   console.log("product is ", cart.products);
-
-  const handleCheckoutModal = () => {
-    handleOpen()
-  };
 
   return (
     <>
@@ -210,9 +203,16 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
-            <TopButton typeButton="filled" onClick={handleOpen}>
+            <TopButton typeButton="filled" onClick={toggleModal}>
               CHECK OUT NOW
             </TopButton>{" "}
+            <Modal
+              open={paymentModal}
+              onClose={onCloseModal}
+              // showCloseIcon={false}
+            >
+              <Pay total={cart.total}/>
+            </Modal>
             {/* {open && <Pay handleClose={handleClose} />} */}
           </Summary>
         </Bottom>

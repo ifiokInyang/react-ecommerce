@@ -4,7 +4,7 @@ import { ICart } from "../utils/interfaces/interface.dto";
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    products: [],
+    products: [],        
     quantity: 0,
     total: 0,
   } as ICart,
